@@ -1,17 +1,49 @@
 package com.example.todolistservice.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Date;
+import com.example.todolistservice.util.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 public class Todolist {
+
+    @Id
+    @GeneratedValue
     private Long id;
     private Long userId;
-    private Date createTime;
-    private Date updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp updateTime;
     private String content;
-    private String status;
+
+    private Status status;
+
+    public Timestamp getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
+    }
+
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public Long getUserId() {
         return userId;
@@ -19,22 +51,6 @@ public class Todolist {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     public String getContent() {
@@ -45,19 +61,10 @@ public class Todolist {
         this.content = content;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Id
     public Long getId() {
         return id;
     }
