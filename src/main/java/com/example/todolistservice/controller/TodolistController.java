@@ -33,8 +33,6 @@ public class TodolistController {
     @PostMapping
     public ResponseEntity create(@RequestBody Todolist todolist, @RequestHeader(name = "Authorization") String jwtToken) {
         todolist.setStatus(Status.NEW);
-        //get user data
-        String uri = "http://localhost:8000/auth/getUserData";
         ResponseEntity<UserDto> data=todolistService.getUserData(jwtToken);
         if(data.equals(null)){
             return new ResponseEntity(null,HttpStatus.BAD_REQUEST);

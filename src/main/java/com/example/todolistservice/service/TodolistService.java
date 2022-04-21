@@ -5,8 +5,11 @@ import com.example.todolistservice.entity.UserDto;
 import com.example.todolistservice.repository.TodolistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -17,6 +20,8 @@ public class TodolistService {
     private CircuitBreakerFactory cbFactory;
     @Autowired
     private TodolistRepository todolistRepository;
+    @Autowired
+    private TodoUtil todoUtil;
 
     public List<Todolist> findAll() {
         return todolistRepository.findAll();
@@ -35,10 +40,6 @@ public class TodolistService {
     }
 
     public ResponseEntity<UserDto> getUserData(String jwtToken) {
-
-        String uri = "http://localhost:9000/auth/getUserData";
-        RestTemplate restTemplate = new RestTemplate();
-
-        return cbFactory.create("circuitbreaker").run(() -> restTemplate.postForEntity(uri,jwtToken,UserDto.class), throwable -> null);
+        return cbFactory.create("circuitbreaker").run(() -> todoUtil.getUserData(jwtToken), throwable -> null);
     }
 }

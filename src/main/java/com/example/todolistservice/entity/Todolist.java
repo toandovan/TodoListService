@@ -2,6 +2,8 @@ package com.example.todolistservice.entity;
 
 import com.example.todolistservice.util.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
